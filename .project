@@ -17,12 +17,16 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1422070108570</id>
+			<id>1422075704775</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.orFilterMatcher</id>
 				<arguments>
+					<matcher>
+						<id>org.eclipse.ui.ide.multiFilter</id>
+						<arguments>1.0-projectRelativePath-equals-true-false-spine-libgdx</arguments>
+					</matcher>
 					<matcher>
 						<id>org.eclipse.ui.ide.multiFilter</id>
 						<arguments>1.0-projectRelativePath-equals-true-false-desktop</arguments>
