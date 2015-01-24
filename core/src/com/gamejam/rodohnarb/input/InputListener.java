@@ -1,6 +1,6 @@
 package com.gamejam.rodohnarb.input;
 
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
@@ -8,9 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 public class InputListener implements GestureListener {
 //public class InputListener implements GestureListener, InputProcessor {
 	
-	OrthographicCamera camera;
+	Camera camera;
 
-	public InputListener(OrthographicCamera camera) {
+	public InputListener(Camera camera) {
 		this.camera = camera;
 	}
 

@@ -1,6 +1,6 @@
 package com.gamejam.rodohnarb.input;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -16,7 +16,7 @@ public class GameInputListener extends InputListener {
 	SmoothCamWorld smoothCamWorld;
 	World world;
 
-	public GameInputListener(OrthographicCamera camera, Player player, SmoothCamWorld smoothCamWorld) {
+	public GameInputListener(Camera camera, Player player, SmoothCamWorld smoothCamWorld) {
 		super(camera);
 		this.player = player;
 		this.smoothCamWorld = smoothCamWorld;
@@ -48,13 +48,7 @@ public class GameInputListener extends InputListener {
 	}
 
 	public boolean zoom(float initialDistance, float distance) {
-		if (initialDistance / distance > 1) {
-			camera.zoom += initialDistance / distance / 1000;
-		} else {
-			if (camera.zoom < .1)
-				return false;
-			camera.zoom -= initialDistance / distance / 500;
-		}
+
 		return false;
 	}
 

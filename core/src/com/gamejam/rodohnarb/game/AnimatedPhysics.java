@@ -1,8 +1,7 @@
 package com.gamejam.rodohnarb.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -48,7 +47,7 @@ public abstract class AnimatedPhysics {
 	AnimationState animationState; // Must create in child class, Holds the animation state for a skeleton (current animation, time, etc).
 	Array<Animation> animations;
 
-	OrthographicCamera camera;
+	Camera camera;
 	World world;
 
 	Array<Body> bodies = new Array<Body>();
@@ -77,7 +76,7 @@ public abstract class AnimatedPhysics {
 	 * @param maskBits
 	 *            mask for Box2D filter
 	 */
-	public AnimatedPhysics(World world, OrthographicCamera camera, String atlasName, Vector2 position, Array<String> skeletonSlotsExcludeFromBodies,
+	public AnimatedPhysics(World world, Camera camera, String atlasName, Vector2 position, Array<String> skeletonSlotsExcludeFromBodies,
 			short categoryBits, short maskBits) {
 
 		this.camera = camera;

@@ -1,7 +1,7 @@
 package com.gamejam.rodohnarb.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -16,8 +16,8 @@ public class SpineBoy extends Player {
 	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "Eyes", "Neck", "Pelvis", "Arm_Upper_Far",
 			"Arm_Upper_Near", "Arm_Lower_Far", "Arm_Lower_Near", "Leg_Upper_Far", "Leg_Lower_Far", "Leg_Upper_Near", "Leg_Lower_Near" });
 
-	public SpineBoy(World world, OrthographicCamera camera) {
-		super(world, camera, "hero", skeletonSlotsExcludeFromBodies);
+	public SpineBoy(World world, Camera camera) {
+		super(world, camera, "spineboy", skeletonSlotsExcludeFromBodies);
 
 		AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 		stateData.setMix("idle", "jump", 0.2f);
