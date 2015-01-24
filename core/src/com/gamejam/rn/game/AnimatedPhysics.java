@@ -36,7 +36,7 @@ public abstract class AnimatedPhysics {
 
 //	SpriteBatch batch;
 	PolygonSpriteBatch batch;
-	ShapeRenderer renderer;
+	//ShapeRenderer renderer;
 	SkeletonRenderer skeletonRenderer = new SkeletonRenderer();
 
 	TextureAtlas atlas;
@@ -92,7 +92,7 @@ public abstract class AnimatedPhysics {
 
 //		batch = new SpriteBatch();
 		batch = new PolygonSpriteBatch();
-		renderer = new ShapeRenderer();
+		//renderer = new ShapeRenderer();
 		
 		atlas = new TextureAtlas(Gdx.files.internal(spineFileName + ".atlas"));
 
@@ -273,10 +273,9 @@ public abstract class AnimatedPhysics {
 				//FIXME what bone?
 				float x = skeleton.getX() + slot.getBone().getWorldX();
 				float y = skeleton.getY() + slot.getBone().getWorldY();
-				float rotation = slot.getBone().getWorldRotation(); 
+				float rotation = slot.getBone().getWorldRotation();
 				attachment.body.setTransform(x, y, rotation * MathUtils.degRad);
 				attachment.body.setLinearVelocity(0f, 0f); // for smoothCam
-
 			}
 		}
 	}
@@ -310,6 +309,6 @@ public abstract class AnimatedPhysics {
 
 	public void resize(Matrix4 projection) {
 		batch.setProjectionMatrix(projection);
-		renderer.setProjectionMatrix(projection);
+		//renderer.setProjectionMatrix(projection);
 	}
 }
