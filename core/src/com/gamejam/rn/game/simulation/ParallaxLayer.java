@@ -17,4 +17,10 @@ public enum ParallaxLayer {
 	ParallaxLayer(float positionScale) {
 		this.positionScale = positionScale;
 	}
+	
+	private static final ParallaxLayer[] cachedVals = values();
+	
+	public static ParallaxLayer[] cachedValues() {
+		return cachedVals;
+	}
 }

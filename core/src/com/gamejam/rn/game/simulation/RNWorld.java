@@ -1,7 +1,9 @@
 package com.gamejam.rn.game.simulation;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
@@ -32,7 +34,7 @@ public class RNWorld implements Disposable {
 	private static final boolean DEBUG_DRAW_CONTACTS = false;
 
 	private List<Entity> entities;
-	private List<Entity> renderableEntities;
+	private Map<ParallaxLayer, List<Entity>> renderableEntities;
 
 	private World physicsWorld;
 	private SmoothCamWorld cameraWorld;
@@ -47,7 +49,10 @@ public class RNWorld implements Disposable {
 	
 	public RNWorld() {
 		entities = new ArrayList<Entity>();
-		renderableEntities = new ArrayList<Entity>();
+		renderableEntities = new EnumMap<ParallaxLayer, List<Entity>>(ParallaxLayer.class);
+		for (ParallaxLayer layer : ParallaxLayer.cachedValues()) {
+			renderableEntities.put(layer, new ArrayList<Entity>());
+		}
 		
 		physicsWorld = new World(new Vector2(0, -9.81f), true);
 
@@ -81,27 +86,37 @@ public class RNWorld implements Disposable {
 		cameraSubject.setVelocity(0, 0);
 		cameraWorld.update();
 		
-		camera.position.set(cameraWorld.getX(), cameraWorld.getY(), 0);
 		camera.viewportHeight = CAMERA_VIEW_HEIGHT * cameraWorld.getZoom();
 		camera.viewportWidth = viewportAspect * CAMERA_VIEW_HEIGHT * cameraWorld.getZoom();
-		camera.update();
 		
-		batch.setProjectionMatrix(camera.projection);
-		batch.setTransformMatrix(camera.view);
-		
-		batch.begin();
-		
-		for (Entity e : renderableEntities) {
-			e.render(batch);
+		for (ParallaxLayer layer : ParallaxLayer.cachedValues()) {
+
+			List<Entity> entities = renderableEntities.get(layer);
+			if (entities.isEmpty())
+				continue;
+			
+			camera.position.set(cameraWorld.getX(), cameraWorld.getY(), 0);
+			camera.update();
+			batch.setProjectionMatrix(camera.projection);
+			batch.setTransformMatrix(camera.view);
+			
+			batch.begin();
+			
+			for (Entity e : entities) {
+				e.render(batch);
+			}
+			
+			batch.end();
+			
+			if (layer == ParallaxLayer.NORMAL) {
+			
+				if (DEBUG_DRAW_CAMERA)
+					cameraDebugRenderer.render(cameraWorld, camera.combined);
+			
+				if (DEBUG_DRAW_PHYSICS)
+					physicsDebugRenderer.render(physicsWorld, camera.combined);
+			}
 		}
-		
-		batch.end();
-		
-		if (DEBUG_DRAW_CAMERA)
-			cameraDebugRenderer.render(cameraWorld, camera.combined);
-		
-		if (DEBUG_DRAW_PHYSICS)
-			physicsDebugRenderer.render(physicsWorld, camera.combined);
 	}
 	
 	public void resize(int width, int height) {
