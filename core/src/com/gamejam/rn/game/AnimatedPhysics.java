@@ -84,11 +84,23 @@ public abstract class AnimatedPhysics {
 		filter = new Filter();
 		filter.categoryBits = categoryBits;
 		filter.maskBits = maskBits;
-		createSkeletalAnimations(atlasName, position, skeletonSlotsExcludeFromBodies);
+		createSkeletalAnimations(atlasName, position, skeletonSlotsExcludeFromBodies, 0.006f);
+
+	}
+	
+	public AnimatedPhysics(World world, Camera camera, String atlasName, Vector2 position, Array<String> skeletonSlotsBodiesSubset,
+			short categoryBits, short maskBits, float scale) {
+
+		this.camera = camera;
+		this.world = world;
+		filter = new Filter();
+		filter.categoryBits = categoryBits;
+		filter.maskBits = maskBits;
+		createSkeletalAnimations(atlasName, position, skeletonSlotsBodiesSubset, scale);
 
 	}
 
-	private void createSkeletalAnimations(String spineFileName, Vector2 position, Array<String> skeletonSlotsExcludeFromBodies) {
+	private void createSkeletalAnimations(String spineFileName, Vector2 position, Array<String> skeletonSlotsBodiesSubset, float scale) {
 
 //		batch = new SpriteBatch();
 		batch = new PolygonSpriteBatch();
@@ -119,7 +131,7 @@ public abstract class AnimatedPhysics {
 //		Gdx.app.log("Created:", this.toString());
 
 		SkeletonJson json = new SkeletonJson(atlasLoader);
-		json.setScale(0.006f);
+		json.setScale(scale);
 		skeletonData = json.readSkeletonData(Gdx.files.internal(spineFileName + ".json"));
 		animations = skeletonData.getAnimations();
 		bounds = new SkeletonBounds(); // Convenience class to do hit detection with bounding boxes, might just use Box2d bodies
@@ -138,8 +150,17 @@ public abstract class AnimatedPhysics {
 		for (Slot slot : skeleton.getSlots()) {
 			if (slot.getAttachment() instanceof Box2dRegionAttachment) {
 				
-				if (skeletonSlotsExcludeFromBodies != null && skeletonSlotsExcludeFromBodies.contains(slot.getAttachment().getName(), false))
-					continue;
+				if (skeletonSlotsBodiesSubset != null) {
+					if(skeletonSlotsBodiesSubset.contains("INCLUDE", false)) {
+						if (!skeletonSlotsBodiesSubset.contains(slot.getAttachment().getName(), false))
+							continue;
+					} else {
+						if(skeletonSlotsBodiesSubset.contains(slot.getAttachment().getName(), false)) 
+							continue;
+					}
+				}
+//				if (skeletonSlotsExcludeFromBodies != null && skeletonSlotsExcludeFromBodies.contains(slot.getAttachment().getName(), false))
+//					continue;
 				Box2dRegionAttachment attachment = (Box2dRegionAttachment) slot.getAttachment();
 
 				PolygonShape boxPoly = new PolygonShape();
@@ -215,7 +236,7 @@ public abstract class AnimatedPhysics {
 		startAnimate(time);
 
 		// make your own methods to call start and finish Animate with stuff like this in between
-		findAnimation("Walk").apply(skeleton, lastTime, time, true, events);
+		findAnimation("walk").apply(skeleton, lastTime, time, true, events);
 		skeleton.setX(skeleton.getX() + 8 * delta); // move forward delta times
 
 		if (animationState == null) {

@@ -30,9 +30,9 @@ public class RNWorld {
 	
 	public RNWorld() {
 		
-		physicsWorld = new World(0, -9.81f, true);
+//		physicsWorld = new World(0, -9.81f, true);
 		
-		cameraWorld = new SmoothCamWorld()
+//		cameraWorld = new SmoothCamWorld();
 		
 		
 		

@@ -36,7 +36,7 @@ public class GameInputListener extends InputListener {
 			if (velocityY < 0) { // fling up
 				player.jump();
 			} else if (velocityY > 0) { // fling down
-
+				player.crouch();
 			}
 		}
 		return false;

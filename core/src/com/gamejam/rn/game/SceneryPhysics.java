@@ -12,13 +12,19 @@ public class SceneryPhysics {
 
 	Filter sceneryFilter;
 	
-	public SceneryPhysics(World world, Vector2 position, Vector2[] vertices) {
+	/**
+	 * 
+	 * @param world Box2D world
+	 * @param position x,y
+	 * @param hwvertices vertices with height and width of the polygon or radius of the circle
+	 */
+	public SceneryPhysics(World world, Vector2 position, Vector2[] hwvertices) {
 		
 		sceneryFilter = new Filter();
 		sceneryFilter.categoryBits = RNGame.CATEGORY_SCENERY;
 		sceneryFilter.maskBits = RNGame.MASK_SCENERY;
 
-		Fixture fixture = PhysicsWrapper.createFixture(world, BodyType.StaticBody, Shape.Type.Polygon, position, vertices, new float[]{});
+		Fixture fixture = PhysicsWrapper.createFixture(world, BodyType.StaticBody, Shape.Type.Polygon, position, hwvertices, new float[]{});
 		fixture.getBody().setUserData(this);
 		fixture.setUserData(this);
 		fixture.setFilterData(sceneryFilter);
