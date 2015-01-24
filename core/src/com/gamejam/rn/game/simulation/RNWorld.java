@@ -14,8 +14,6 @@ import com.gamejam.rn.camera.SmoothCamSubject;
 import com.gamejam.rn.camera.SmoothCamWorld;
 
 public class RNWorld implements Disposable {
-
-	
 	
 	private static final float MAX_PHYSICS_TIMESTEP = 0.016f;
 	private static final int PHYSICS_VELOCITY_ITERATIONS = 8; //6
@@ -41,14 +39,13 @@ public class RNWorld implements Disposable {
 	private SmoothCamSubject cameraSubject;
 	private OrthographicCamera camera;
 	private float viewportAspect;
-	
+
 	private PolygonSpriteBatch batch;
 
 	private Box2DDebugRenderer physicsDebugRenderer;
 	private SmoothCamDebugRenderer cameraDebugRenderer;
-
+	
 	public RNWorld() {
-
 		entities = new ArrayList<Entity>();
 		renderableEntities = new ArrayList<Entity>();
 		
@@ -67,8 +64,9 @@ public class RNWorld implements Disposable {
 				DEBUG_DRAW_AABBS, DEBUG_DRAW_INACTIVE_BODIES,
 				DEBUG_DRAW_VELOCITIES, DEBUG_DRAW_CONTACTS);
 	}
-
+	
 	public void update(float dt) {
+
 		float remaining = dt;
 		while (remaining > 0) {
 			float d = Math.min(MAX_PHYSICS_TIMESTEP, remaining);
@@ -84,6 +82,8 @@ public class RNWorld implements Disposable {
 		cameraWorld.update();
 		
 		camera.position.set(cameraWorld.getX(), cameraWorld.getY(), 0);
+		camera.viewportHeight = CAMERA_VIEW_HEIGHT * cameraWorld.getZoom();
+		camera.viewportWidth = viewportAspect * CAMERA_VIEW_HEIGHT * cameraWorld.getZoom();
 		camera.update();
 		
 		batch.setProjectionMatrix(camera.projection);
@@ -105,10 +105,7 @@ public class RNWorld implements Disposable {
 	}
 	
 	public void resize(int width, int height) {
-		float aspect = (float)width / height;
-		
-		camera.viewportHeight = CAMERA_VIEW_HEIGHT;
-		camera.viewportWidth = aspect * CAMERA_VIEW_HEIGHT;
+		viewportAspect = (float)width / height;
 	}
 
 	@Override

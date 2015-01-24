@@ -36,7 +36,17 @@ public class PhysicsWrapper {
 		baseFixture = createFixture(world, bodyType, shapeType, position, vertices, massCoefficients);
 	}
 
-	public static Fixture createFixture(World world, BodyType bodytype, Type shapeType, Vector2 position, Vector2[] vertices, float[] massCoefficients) {
+	/**
+	 * 
+	 * @param world Box2D world
+	 * @param bodytype StaticBody, KinematicBody, or DynamicBody
+	 * @param shapeType Chain, Circle, Edge, Polygon
+	 * @param position x,y
+	 * @param hwvertices vertices with height and width of the polygon or radius of the circle
+	 * @param massCoefficients
+	 * @return
+	 */
+	public static Fixture createFixture(World world, BodyType bodytype, Type shapeType, Vector2 position, Vector2[] hwvertices, float[] massCoefficients) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = bodytype;
 		bodyDef.position.set(position);
@@ -50,16 +60,16 @@ public class PhysicsWrapper {
 		case Chain:
 			break;
 		case Circle:
-			circleShape.setRadius(vertices[0].x);
+			circleShape.setRadius(hwvertices[0].x);
 			fixtureDef.shape = circleShape;
 			break;
 		case Edge:
 			break;
 		case Polygon:
-			if (vertices.length == 1) {
-				polyShape.setAsBox(vertices[0].x, vertices[0].y); // if one vert, set as box
+			if (hwvertices.length == 1) {
+				polyShape.setAsBox(hwvertices[0].x, hwvertices[0].y); // if one vert, set as box
 			} else {
-				polyShape.set(vertices);
+				polyShape.set(hwvertices);
 			}
 			fixtureDef.shape = polyShape;
 			break;

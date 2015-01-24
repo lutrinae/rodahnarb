@@ -7,25 +7,26 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.AnimationStateData;
 
-public class SpineBoy extends Player {
+public class Hero extends Player {
 
 	private float walkSpeed = 0.05f;
 
 	public boolean midAir = false;
 
-//	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "Eyes", "Neck", "Pelvis", "Arm_Upper_Far","Arm_Upper_Near", "Arm_Lower_Far", "Arm_Lower_Near", "Leg_Upper_Far", "Leg_Lower_Far", "Leg_Upper_Near", "Leg_Lower_Near" });
-	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "EXCLUDE", "rear_upper_arm", "rear_bracer", "rear_thigh", "rear_shin", "neck", "front_upper_arm", "eye", "front_thigh", "front_shin", "mouth" , "goggles", "front_bracer", "front_fist", "muzzle", "front_fist", "head-bb"});
+	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "INCLUDE", "weapon", "eyes", "body", "foot1", "foot2"});
 
-	public SpineBoy(World world, Camera camera) {
-		super(world, camera, "spineboy", skeletonSlotsExcludeFromBodies);
+	public Hero(World world, Camera camera) {
+		super(world, camera, "hero", skeletonSlotsExcludeFromBodies, 0.012f);
 
 		AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
-		stateData.setMix("idle", "jump", 0.2f);
-		stateData.setMix("idle", "walk", 0.2f);
-		stateData.setMix("walk", "jump", 0.2f);
-		stateData.setMix("walk", "idle", 0.2f);
-		stateData.setMix("jump", "walk", 0.4f);
-		stateData.setMix("jump", "idle", 0.4f);
+		stateData.setDefaultMix(0.1f);
+//		stateData.setMix("idle", "jump", 0.2f);
+//		stateData.setMix("idle", "walk", 0.2f);
+//		stateData.setMix("idle", "crouch", 0.2f);
+//		stateData.setMix("walk", "jump", 0.1f);
+//		stateData.setMix("walk", "idle", 0.2f);
+//		stateData.setMix("jump", "walk", 0.4f);
+//		stateData.setMix("jump", "idle", 0.4f);
 		createAnimationState(stateData);
 
 		animationState.setAnimation(0, "idle", true);
@@ -78,7 +79,7 @@ public class SpineBoy extends Player {
 			curVelocity.x = 0f;
 		}
 		if (animationState.getCurrent(0) == null || !animationState.getCurrent(0).toString().equals("idle")) {
-			animationState.setAnimation(0, "idle", false);
+			animationState.setAnimation(0, "idle", true);
 			Gdx.app.log("Animaiton state:", animationState.getCurrent(0).toString());
 		}
 	}
@@ -113,7 +114,11 @@ public class SpineBoy extends Player {
 
 	@Override
 	public void crouch() {
-		// TODO Auto-generated method stub
+		moveStop();
+		if (animationState.getCurrent(0) == null || !animationState.getCurrent(0).toString().equals("crouch")) {
+			animationState.setAnimation(0, "crouch", true);
+			Gdx.app.log("Animaiton state:", animationState.getCurrent(0).toString());
+		}
 		
 	}
 
