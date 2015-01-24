@@ -17,7 +17,7 @@ public class SpineBoy extends Player {
 			"Arm_Upper_Near", "Arm_Lower_Far", "Arm_Lower_Near", "Leg_Upper_Far", "Leg_Lower_Far", "Leg_Upper_Near", "Leg_Lower_Near" });
 
 	public SpineBoy(World world, OrthographicCamera camera) {
-		super(world, camera, "spineboy", skeletonSlotsExcludeFromBodies);
+		super(world, camera, "hero", skeletonSlotsExcludeFromBodies);
 
 		AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 		stateData.setMix("idle", "jump", 0.2f);

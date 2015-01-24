@@ -93,8 +93,8 @@ public class RodohNarb extends ApplicationAdapter {
 //			camera.position.set(robot.getFixture().getBody().getPosition().x,robot.getFixture().getBody().getPosition().y,0f);
 		}
 		
-		debugRenderer.render(world, camera.combined);
-		scDebug.render(smoothCamWorld, camera.combined);
+//		debugRenderer.render(world, camera.combined);
+//		scDebug.render(smoothCamWorld, camera.combined);
 		
 	}
 	
