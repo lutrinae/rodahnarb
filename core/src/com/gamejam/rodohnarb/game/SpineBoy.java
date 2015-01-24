@@ -13,8 +13,8 @@ public class SpineBoy extends Player {
 
 	public boolean midAir = false;
 
-	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "Eyes", "Neck", "Pelvis", "Arm_Upper_Far",
-			"Arm_Upper_Near", "Arm_Lower_Far", "Arm_Lower_Near", "Leg_Upper_Far", "Leg_Lower_Far", "Leg_Upper_Near", "Leg_Lower_Near" });
+//	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "Eyes", "Neck", "Pelvis", "Arm_Upper_Far","Arm_Upper_Near", "Arm_Lower_Far", "Arm_Lower_Near", "Leg_Upper_Far", "Leg_Lower_Far", "Leg_Upper_Near", "Leg_Lower_Near" });
+	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "rear_upper_arm", "rear_bracer", "rear_thigh", "rear_shin", "neck", "front_upper_arm", "eye", "front_thigh", "front_shin", "mouth" , "goggles", "front_bracer", "front_fist", "muzzle", "front_fist", "head-bb"});
 
 	public SpineBoy(World world, Camera camera) {
 		super(world, camera, "spineboy", skeletonSlotsExcludeFromBodies);

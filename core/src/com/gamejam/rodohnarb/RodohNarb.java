@@ -2,9 +2,9 @@ package com.gamejam.rodohnarb;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -26,7 +26,7 @@ public class RodohNarb extends ApplicationAdapter {
 	Box2DDebugRenderer debugRenderer;
 	private SmoothCamDebugRenderer scDebug;
 	
-	PerspectiveCamera camera;
+	OrthographicCamera camera;
 	static final float BOX_STEP=1/60f;
 	static final int BOX_VELOCITY_ITERATIONS=8; //6
 	static final int BOX_POSITION_ITERATIONS=3; //2
@@ -52,9 +52,9 @@ public class RodohNarb extends ApplicationAdapter {
 	public void create () {
 		Box2D.init();
 		
-//		camera = new OrthographicCamera(WIDTH * WORLD_TO_BOX,HEIGHT * WORLD_TO_BOX);
-		camera = new PerspectiveCamera(60,WIDTH, HEIGHT);
-//		camera.zoom = 0.4f; //1.0 normal zoom, 2.0 zoomed out
+		camera = new OrthographicCamera(WIDTH * WORLD_TO_BOX,HEIGHT * WORLD_TO_BOX);
+//		camera = new PerspectiveCamera(60,WIDTH, HEIGHT);
+		camera.zoom = 0.4f; //1.0 normal zoom, 2.0 zoomed out
 		camera.update(); 
 		
 		debugRenderer = new Box2DDebugRenderer();
@@ -63,6 +63,8 @@ public class RodohNarb extends ApplicationAdapter {
 		world = new GameWorld(camera).getWorld();
 		player = new SpineBoy(world, camera);
 //		robot = new Robot(world, camera);
+//		camera.position.set(new Vector3(0,0,10));
+//		camera.lookAt(0,0,0);
 		smoothCamWorld = new SmoothCamWorld(player.playerCam);
 		smoothCamWorld.setBoundingBox(camera.viewportWidth * 0.8f, camera.viewportHeight * 0.8f);
 		
@@ -95,7 +97,7 @@ public class RodohNarb extends ApplicationAdapter {
 //			camera.position.set(robot.getFixture().getBody().getPosition().x,robot.getFixture().getBody().getPosition().y,0f);
 		}
 		
-//		debugRenderer.render(world, camera.combined);
+		debugRenderer.render(world, camera.combined);
 //		scDebug.render(smoothCamWorld, camera.combined);
 		
 	}
