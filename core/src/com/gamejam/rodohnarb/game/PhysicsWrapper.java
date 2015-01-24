@@ -17,7 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonRenderer;
-import com.gamejam.rodohnarb.RodohNarb;
+import com.gamejam.rodohnarb.RNGame;
 
 public class PhysicsWrapper {
 
@@ -68,8 +68,8 @@ public class PhysicsWrapper {
 		}
 
 		Filter filter = new Filter();
-		filter.categoryBits = RodohNarb.CATEGORY_PLAYER;
-		filter.maskBits = RodohNarb.MASK_PLAYER;
+		filter.categoryBits = RNGame.CATEGORY_PLAYER;
+		filter.maskBits = RNGame.MASK_PLAYER;
 
 		if (massCoefficients != null && massCoefficients.length == 3) {
 			fixtureDef.density = massCoefficients[0];

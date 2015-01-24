@@ -19,8 +19,8 @@ public class GameWorld {
 		this.world = new World(new Vector2(0, -10), true);
 		
 		sceneryFilter = new Filter();
-		sceneryFilter.categoryBits = RodohNarb.CATEGORY_SCENERY;
-		sceneryFilter.maskBits = RodohNarb.MASK_SCENERY;
+		sceneryFilter.categoryBits = RNGame.CATEGORY_SCENERY;
+		sceneryFilter.maskBits = RNGame.MASK_SCENERY;
 		
 		float bw = 1.0f; //border width
 

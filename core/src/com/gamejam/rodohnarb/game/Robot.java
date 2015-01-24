@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.joints.PrismaticJoint;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
-import com.gamejam.rodohnarb.RodohNarb;
+import com.gamejam.rodohnarb.RNGame;
 
 public class Robot {
 	// public class Player {
@@ -45,8 +45,8 @@ public class Robot {
 		ammo = 10;
 
 		filter = new Filter();
-		filter.categoryBits = RodohNarb.CATEGORY_PLAYER;
-		filter.maskBits = RodohNarb.MASK_PLAYER;
+		filter.categoryBits = RNGame.CATEGORY_PLAYER;
+		filter.maskBits = RNGame.MASK_PLAYER;
 		baseFixture.setFilterData(filter);
 		springFixture.setFilterData(filter);
 		wheelFixture.setFilterData(filter);
@@ -119,8 +119,8 @@ public class Robot {
 			Fixture bulletFixture = PhysicsWrapper.createFixture(baseFixture.getBody().getWorld(), BodyType.DynamicBody, Shape.Type.Circle,
 					baseFixture.getBody().getPosition(), new Vector2[] { new Vector2(.2f, 1f) }, new float[] {});
 			bulletFixture.setFilterData(filter);
-			float xDiff = Gdx.input.getX() * RodohNarb.WORLD_TO_BOX - bulletFixture.getBody().getPosition().x;
-			float yDiff = Gdx.input.getY() * RodohNarb.WORLD_TO_BOX - bulletFixture.getBody().getPosition().y;
+			float xDiff = Gdx.input.getX() * RNGame.WORLD_TO_BOX - bulletFixture.getBody().getPosition().x;
+			float yDiff = Gdx.input.getY() * RNGame.WORLD_TO_BOX - bulletFixture.getBody().getPosition().y;
 			float hypot = (float) Math.hypot(xDiff, yDiff);
 			// System.out.println("xMouse:" + Gdx.input.getX() * Platformer.WORLD_TO_BOX + " xPlayer:" +
 			// bulletFixture.getBody().getPosition().x);
