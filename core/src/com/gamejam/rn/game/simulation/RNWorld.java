@@ -142,8 +142,12 @@ public class RNWorld implements Disposable {
 		}
 		
 		entities.add(entity);
-		if (entity.isRenderable())
-			renderableEntities.add(entity);
+		if (entity.isRenderable()) {
+			ParallaxLayer layer = entity.getLayer();
+			if (layer != null) {
+				renderableEntities.get(layer).add(entity);				
+			}
+		}
 	}
 	
 	public boolean removeEntity(Entity entity) {
@@ -153,7 +157,12 @@ public class RNWorld implements Disposable {
 		if (!entities.remove(entity))
 			return false;
 		
-		renderableEntities.remove(entity);
+		 if (entity.isRenderable()) {
+			ParallaxLayer layer = entity.getLayer();
+			if (layer != null) {
+				renderableEntities.get(layer).remove(entity);				
+			}
+		}
 		entity.setWorld(null);
 		return true;
 	}

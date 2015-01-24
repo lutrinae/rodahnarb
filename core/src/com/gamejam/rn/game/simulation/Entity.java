@@ -32,6 +32,10 @@ public class Entity {
 		return false;
 	}
 	
+	public ParallaxLayer getLayer() {
+		return ParallaxLayer.NORMAL;
+	}
+	
 	public void render(Batch batch) {
 	}
 	
