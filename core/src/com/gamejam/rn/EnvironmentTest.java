@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.gamejam.rn.game.simulation.ParallaxLayer;
+import com.gamejam.rn.game.simulation.PlatformEntity;
 import com.gamejam.rn.game.simulation.RNWorld;
 import com.gamejam.rn.game.simulation.RepeatingBackgroundEntity;
 
@@ -32,6 +33,10 @@ public class EnvironmentTest extends ApplicationAdapter {
 		world.addEntity(e1);
 		world.addEntity(e2);
 		world.addEntity(e3);
+		
+		PlatformEntity pe = new PlatformEntity(25, 25);
+		e3.setPosition(50, 10);
+		world.addEntity(pe);
 		
 		world.getCameraSubject().setVelocity(10f,  0f);
 		

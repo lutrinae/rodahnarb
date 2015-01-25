@@ -41,7 +41,6 @@ public class EnvironmentEntity extends Entity {
 
 	@Override
 	public void render(Batch batch) {
-		
 		sprite.draw(batch);
 	}
 
@@ -65,7 +64,6 @@ public class EnvironmentEntity extends Entity {
 			
 			this.layer = layer;
 		}
-		
 	}
 	
 	@Override

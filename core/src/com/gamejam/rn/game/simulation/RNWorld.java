@@ -29,7 +29,7 @@ public class RNWorld implements Disposable {
 	private static final boolean DEBUG_DRAW_PHYSICS = true;
 	private static final boolean DEBUG_DRAW_BODIES = true;
 	private static final boolean DEBUG_DRAW_JOINTS = true;
-	private static final boolean DEBUG_DRAW_AABBS = false;
+	private static final boolean DEBUG_DRAW_AABBS = true;
 	private static final boolean DEBUG_DRAW_INACTIVE_BODIES = true;
 	private static final boolean DEBUG_DRAW_VELOCITIES = true;
 	private static final boolean DEBUG_DRAW_CONTACTS = false;
@@ -101,7 +101,7 @@ public class RNWorld implements Disposable {
 		for (ParallaxLayer layer : ParallaxLayer.cachedValues()) {
 
 			List<Entity> entities = renderableEntities.get(layer);
-			if (entities.isEmpty())
+			if (entities.isEmpty() && layer != ParallaxLayer.NORMAL)
 				continue;
 			
 			camera.position.set(cameraWorld.getX() * layer.xPositionScale,
@@ -138,6 +138,13 @@ public class RNWorld implements Disposable {
 
 	@Override
 	public void dispose() {
+		for (Entity entity : entities) {
+			entity.setWorld(null);
+		}
+		
+		entities.clear();
+		renderableEntities.clear();
+		
 		batch.dispose();
 		physicsWorld.dispose();
 	}
@@ -177,11 +184,15 @@ public class RNWorld implements Disposable {
 				renderableEntities.get(layer).remove(entity);				
 			}
 		}
+		
 		entity.setWorld(null);
 		return true;
 	}
 	
 	void changeLayers(Entity entity, ParallaxLayer oldLayer, ParallaxLayer newLayer) {
+//		if (entity.getWorld() != this)
+//			return;
+		
 		if (oldLayer != null) {
 			renderableEntities.get(oldLayer).remove(entity);				
 		}
@@ -189,6 +200,10 @@ public class RNWorld implements Disposable {
 		if (newLayer != null) {
 			renderableEntities.get(newLayer).add(entity);				
 		}
+	}
+	
+	public World getPhysicsWorld() {
+		return physicsWorld;
 	}
 	
 	public OrthographicCamera getCamera() {

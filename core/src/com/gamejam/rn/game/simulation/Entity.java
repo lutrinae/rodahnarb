@@ -2,8 +2,9 @@ package com.gamejam.rn.game.simulation;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Entity {
+public class Entity implements Disposable {
 
 	protected RNWorld world;
 	
@@ -11,6 +12,9 @@ public class Entity {
 	
 	public Entity() {
 		position = new Vector2();
+	}	
+	
+	protected void init() {
 	}
 	
 	public RNWorld getWorld() {
@@ -22,7 +26,17 @@ public class Entity {
 	 * @param world The new world this entity belongs to.
 	 */
 	void setWorld(RNWorld world) {
+		if (world == null) {
+			dispose();
+			this.world = null;
+			return;
+		}
+		
+		if (this.world != null)
+			throw new IllegalStateException();
+		
 		this.world = world;
+		init();
 	}
 	
 	public boolean isRenderable() {
@@ -46,6 +60,10 @@ public class Entity {
 	
 	public float getY() {
 		return position.y;
+	}
+
+	@Override
+	public void dispose() {
 	}
 	
 }
