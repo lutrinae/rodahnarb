@@ -1,5 +1,9 @@
 package com.gamejam.rn.game.simulation;
 
+import java.util.List;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -21,8 +25,10 @@ public class PlatformEntity extends Entity {
 	
 	private Fixture fixture;
 	private Body body;
-	float width;
-	float height;
+	private float width;
+	private float height;
+	
+	private List<Sprite> sprites;
 	
 	public PlatformEntity(float width, float height) {
 		this.width = width;
@@ -52,6 +58,35 @@ public class PlatformEntity extends Entity {
 	@Override
 	public void dispose() {
 		world.getPhysicsWorld().destroyBody(body);
+	}
+	
+	@Override
+	public boolean isRenderable() {
+		return true;
+	}
+	
+	public void addSprite(Sprite sprite) {
+		addSprite(sprite, 0f, 0f);
+	}
+	
+	public void addSprite(Sprite sprite, float x, float y) {
+		sprites.add(sprite);
+		sprite.setOriginCenter();
+		sprite.setCenter(body.getWorldCenter().x + x, body.getWorldCenter().y + y);
+	}
+	
+	public void addSprite(Sprite sprite, float x, float y, float width, float height) {
+		sprites.add(sprite);
+		sprite.setOriginCenter();
+		sprite.setScale(width / sprite.getWidth(), height / sprite.getHeight());
+		sprite.setCenter(body.getWorldCenter().x + x, body.getWorldCenter().y + y);
+	}
+	
+	@Override
+	public void render(Batch batch) {
+		for (Sprite s : sprites) {
+			s.draw(batch);
+		}
 	}
 	
 }
