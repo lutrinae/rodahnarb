@@ -9,11 +9,8 @@ public class Entity {
 	
 	protected Vector2 position;
 	
-	public Entity(RNWorld world) {
+	public Entity() {
 		position = new Vector2();
-		if (world != null) {
-			world.addEntity(this);
-		}
 	}
 	
 	public RNWorld getWorld() {

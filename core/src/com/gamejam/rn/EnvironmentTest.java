@@ -5,8 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.Box2D;
-import com.gamejam.rn.game.simulation.Entity;
 import com.gamejam.rn.game.simulation.EnvironmentEntity;
+import com.gamejam.rn.game.simulation.ParallaxLayer;
 import com.gamejam.rn.game.simulation.RNWorld;
 
 public class EnvironmentTest extends ApplicationAdapter {
@@ -20,11 +20,19 @@ public class EnvironmentTest extends ApplicationAdapter {
 		
 		TextureAtlas environmentAtlas = new TextureAtlas(Gdx.files.internal("environment.atlas"));
 		
-		EnvironmentEntity e1 = new EnvironmentEntity(world, environmentAtlas, "test1");
+		EnvironmentEntity e1 = new EnvironmentEntity(environmentAtlas, "test1");
 		e1.setSize(100, 100);
-		e1.setPosition(10, 0);
+		e1.setPosition(0, 0);
 		
+		EnvironmentEntity e2 = new EnvironmentEntity(environmentAtlas, "test2");
+		e2.setLayer(ParallaxLayer.BACKGROUND);
+		e2.setSize(100, 100);
+		e2.setPosition(10, 10);
 		
+		world.addEntity(e1);
+		world.addEntity(e2);
+		
+		world.getCameraSubject().setVelocity(10f,  0f);
 		
 		//input
 		//Gdx.input.setInputProcessor(new GestureDetector(new GameInputListener(camera, player, smoothCamWorld))); // Listen for touch events in our InputListener class

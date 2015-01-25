@@ -6,8 +6,7 @@ public class DynamicEntity extends Entity {
 
 	protected Vector3 velocity;
 	
-	public DynamicEntity(RNWorld world) {
-		super(world);
+	public DynamicEntity() {
 	}
 	
 	

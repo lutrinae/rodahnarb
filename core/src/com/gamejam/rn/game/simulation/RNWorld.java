@@ -36,6 +36,8 @@ public class RNWorld implements Disposable {
 	private List<Entity> entities;
 	private Map<ParallaxLayer, List<Entity>> renderableEntities;
 
+	private double time;
+	
 	private World physicsWorld;
 	private SmoothCamWorld cameraWorld;
 	private SmoothCamSubject cameraSubject;
@@ -54,6 +56,7 @@ public class RNWorld implements Disposable {
 			renderableEntities.put(layer, new ArrayList<Entity>());
 		}
 		
+		time = 0f;
 		physicsWorld = new World(new Vector2(0, -9.81f), true);
 
 		cameraSubject = new SmoothCamSubject();
@@ -76,14 +79,16 @@ public class RNWorld implements Disposable {
 		while (remaining > 0) {
 			float d = Math.min(MAX_PHYSICS_TIMESTEP, remaining);
 			physicsWorld.step(d, PHYSICS_VELOCITY_ITERATIONS, PHYSICS_POSITION_ITERATIONS);
-			//time += d;
+			time += d;
 			remaining -= d;
 		}
+		
+		cameraSubject.setPosition((float)time * 5f, 0f);
 	}
 	
 	public void render() {
-		cameraSubject.setPosition(0, 0);
-		cameraSubject.setVelocity(0, 0);
+		//cameraSubject.setPosition(0, 0);
+		//cameraSubject.setVelocity(0, 0);
 		cameraWorld.update();
 		
 		camera.viewportHeight = CAMERA_VIEW_HEIGHT * cameraWorld.getZoom();
@@ -95,7 +100,10 @@ public class RNWorld implements Disposable {
 			if (entities.isEmpty())
 				continue;
 			
-			camera.position.set(cameraWorld.getX(), cameraWorld.getY(), 0);
+			camera.position.set(cameraWorld.getX() * layer.xPositionScale,
+					cameraWorld.getY() * layer.yPositionScale, 0);
+			
+			//Gdx.app.log(layer.name(), camera.position.toString());;
 			camera.update();
 			batch.setProjectionMatrix(camera.projection);
 			batch.setTransformMatrix(camera.view);
@@ -107,6 +115,7 @@ public class RNWorld implements Disposable {
 			}
 			
 			batch.end();
+			//batch.flush();
 			
 			if (layer == ParallaxLayer.NORMAL) {
 			
@@ -148,6 +157,7 @@ public class RNWorld implements Disposable {
 				renderableEntities.get(layer).add(entity);				
 			}
 		}
+		entity.setWorld(this);
 	}
 	
 	public boolean removeEntity(Entity entity) {
@@ -165,6 +175,20 @@ public class RNWorld implements Disposable {
 		}
 		entity.setWorld(null);
 		return true;
+	}
+	
+	void changeLayers(Entity entity, ParallaxLayer oldLayer, ParallaxLayer newLayer) {
+		if (oldLayer != null) {
+			renderableEntities.get(oldLayer).remove(entity);				
+		}
+		
+		if (newLayer != null) {
+			renderableEntities.get(newLayer).add(entity);				
+		}
+	}
+	
+	public SmoothCamSubject getCameraSubject() {
+		return cameraSubject;
 	}
 	
 }
