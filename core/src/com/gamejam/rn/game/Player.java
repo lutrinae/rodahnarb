@@ -70,4 +70,8 @@ public abstract class Player extends AnimatedPhysics {
 	
 	public abstract void sprint(boolean doSprint);
 
+	public abstract void look(boolean doLook);
+
+	public abstract void primaryFire(boolean doPrimaryFire);
+
 }

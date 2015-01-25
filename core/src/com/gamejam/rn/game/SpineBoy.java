@@ -123,4 +123,16 @@ public class SpineBoy extends Player {
 		
 	}
 
+	@Override
+	public void look(boolean doLook) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void primaryFire(boolean doPrimaryFire) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -164,7 +164,8 @@ public abstract class AnimatedPhysics {
 				Box2dRegionAttachment attachment = (Box2dRegionAttachment) slot.getAttachment();
 
 				PolygonShape boxPoly = new PolygonShape();
-				boxPoly.setAsBox(attachment.getWidth() / 2 * attachment.getScaleX(), attachment.getHeight() / 2 * attachment.getScaleY(),
+				int fudgeScale = 8;
+				boxPoly.setAsBox(attachment.getWidth() / fudgeScale * attachment.getScaleX(), attachment.getHeight() / fudgeScale * attachment.getScaleY(),
 						vector.set(attachment.getX(), attachment.getY()), attachment.getRotation() * MathUtils.degRad);
 
 				BodyDef boxBodyDef = new BodyDef();
@@ -255,6 +256,12 @@ public abstract class AnimatedPhysics {
 		batch.setProjectionMatrix(camera.projection);
 		batch.setTransformMatrix(camera.view);
 		batch.begin();
+	}
+
+	public void updateAnimate(float delta) {
+	    animationState.update(delta);
+	    animationState.apply(skeleton);
+	    
 	}
 
 	public void finishAnimate(float time, float delta) {

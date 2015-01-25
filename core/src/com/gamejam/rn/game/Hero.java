@@ -2,10 +2,13 @@ package com.gamejam.rn.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.AnimationStateData;
+import com.esotericsoftware.spine.Bone;
 
 public class Hero extends Player {
 
@@ -15,6 +18,8 @@ public class Hero extends Player {
 	public boolean midAir = false;
 	public boolean sprinting = false;
 	public boolean walking = false;
+	
+	Bone head;
 
 	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "INCLUDE", "weapon", "eyes", "body", "foot1", "foot2"});
 
@@ -33,6 +38,8 @@ public class Hero extends Player {
 		createAnimationState(stateData);
 
 		animationState.setAnimation(0, "idle", true);
+		
+		head = skeleton.findBone("head");
 	}
 
 	public void animate(float time, float delta) {
@@ -40,9 +47,45 @@ public class Hero extends Player {
 
 		skeleton.setX(skeleton.getX() + curVelocity.x);
 		skeleton.setY(skeleton.getY() + curVelocity.y);
+//		head.setScale(5);
 		
-		finishAnimate(time, delta);
+		updateAnimate(delta);
+		lookAtMouse();
+		finishAnimate(time);
+		
 	}
+	
+	private void lookAtMouse() {
+		Vector3 mouseDirection = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(),0)).sub(skeleton.getX(), skeleton.getY() + 3,0);
+		Vector2 mouseDirection2 = new Vector2 (mouseDirection.x, mouseDirection.y);;
+		float rawMouseAngle = mouseDirection2.angle();
+		mouseDirection2.x = Math.abs(mouseDirection2.x);
+		float localMouseAngle =  mouseDirection2.angle();
+		float rotateHead = 90;
+		
+		if (rawMouseAngle > 180) {
+			rawMouseAngle -= 360;
+			localMouseAngle -= 360;
+		}
+		rotateHead = localMouseAngle;
+
+		if (localMouseAngle > 45)
+			rotateHead = 45;
+		if (localMouseAngle < -45)
+			rotateHead = -45;
+		Gdx.app.log("Angle", "" + (rawMouseAngle));
+		
+		head.setRotation(rotateHead - 90);
+		
+		if (rawMouseAngle > 90 || rawMouseAngle < -90) {
+			head.setFlipX(!skeleton.getFlipX());
+		}
+		if (rawMouseAngle < 90 && rawMouseAngle > -90) {
+			head.setFlipX(skeleton.getFlipX());
+		}
+	}
+	
+	
 
 	@Override
 	public void moveRight(boolean doMove) {
@@ -141,6 +184,23 @@ public class Hero extends Player {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void look(boolean doLook) {
+		
+		
+//		if (animationState.getCurrent(0) == null || !animationState.getCurrent(0).toString().equals("headturn")) {
+//			animationState.setAnimation(0, "headturn", true);
+//			Gdx.app.log("Animaiton state:", animationState.getCurrent(0).toString());
+//		}
+		
+	}
+
+	@Override
+	public void primaryFire(boolean doPrimaryFire) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

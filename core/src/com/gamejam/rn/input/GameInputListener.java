@@ -1,5 +1,6 @@
 package com.gamejam.rn.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
@@ -123,6 +124,8 @@ public class GameInputListener implements GestureListener, InputProcessor {
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
+		Gdx.app.log("Mouse X: " + screenX, " , Mouse Y: " + screenY);
+		player.look(true);
 		// TODO Auto-generated method stub
 		return false;
 	}

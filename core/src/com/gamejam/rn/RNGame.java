@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.gamejam.rn.camera.SmoothCamDebugRenderer;
 import com.gamejam.rn.camera.SmoothCamWorld;
+import com.gamejam.rn.game.Hero;
 import com.gamejam.rn.game.Player;
 import com.gamejam.rn.game.Robot;
 import com.gamejam.rn.game.RodohNarb;
@@ -59,8 +60,8 @@ public class RNGame extends ApplicationAdapter {
 
 		world = new GameWorld(camera).getWorld();
 //		player = new SpineBoy(world, camera);
-//		player = new Hero(world, camera);
-		player = new RodohNarb(world, camera);
+		player = new Hero(world, camera);
+//		player = new RodohNarb(world, camera);
 //		robot = new Robot(world, camera);
 		smoothCamWorld = new SmoothCamWorld(player.playerCam);
 		smoothCamWorld.setBoundingBox(camera.viewportWidth * 0.8f, camera.viewportHeight * 0.8f);

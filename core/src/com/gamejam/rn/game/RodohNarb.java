@@ -16,10 +16,10 @@ public class RodohNarb extends Player {
 	public boolean sprinting = false;
 	public boolean walking = false;
 
-	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "INCLUDE", "weapon", "eyes", "body", "foot1", "foot2"});
+	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "INCLUDE", "Rodah_right_foot", "Rodah_left_foot", "Rodah_Torso", "foot1", "foot2"});
 
 	public RodohNarb(World world, Camera camera) {
-		super(world, camera, "rodohnarb", skeletonSlotsExcludeFromBodies, 0.012f);
+		super(world, camera, "rodohnarb", skeletonSlotsExcludeFromBodies, 0.011f);
 
 		AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 		stateData.setDefaultMix(0.1f);
@@ -141,6 +141,18 @@ public class RodohNarb extends Player {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void look(boolean doLook) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void primaryFire(boolean doPrimaryFire) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
