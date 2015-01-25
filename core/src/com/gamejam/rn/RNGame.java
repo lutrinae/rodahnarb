@@ -2,21 +2,16 @@ package com.gamejam.rn;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.gamejam.rn.camera.SmoothCamDebugRenderer;
 import com.gamejam.rn.camera.SmoothCamWorld;
-import com.gamejam.rn.game.Hero;
 import com.gamejam.rn.game.Player;
 import com.gamejam.rn.game.Robot;
-import com.gamejam.rn.game.SpineBoy;
+import com.gamejam.rn.game.RodohNarb;
 import com.gamejam.rn.input.GameInputListener;
 
 public class RNGame extends ApplicationAdapter {
@@ -64,7 +59,8 @@ public class RNGame extends ApplicationAdapter {
 
 		world = new GameWorld(camera).getWorld();
 //		player = new SpineBoy(world, camera);
-		player = new Hero(world, camera);
+//		player = new Hero(world, camera);
+		player = new RodohNarb(world, camera);
 //		robot = new Robot(world, camera);
 		smoothCamWorld = new SmoothCamWorld(player.playerCam);
 		smoothCamWorld.setBoundingBox(camera.viewportWidth * 0.8f, camera.viewportHeight * 0.8f);

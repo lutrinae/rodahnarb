@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.AnimationStateData;
 
-public class Hero extends Player {
+public class RodohNarb extends Player {
 
 	private float walkSpeed = 0.05f;
 	private float runSpeed = 0.15f;
@@ -18,8 +18,8 @@ public class Hero extends Player {
 
 	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "INCLUDE", "weapon", "eyes", "body", "foot1", "foot2"});
 
-	public Hero(World world, Camera camera) {
-		super(world, camera, "hero", skeletonSlotsExcludeFromBodies, 0.012f);
+	public RodohNarb(World world, Camera camera) {
+		super(world, camera, "rodohnarb", skeletonSlotsExcludeFromBodies, 0.012f);
 
 		AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 		stateData.setDefaultMix(0.1f);
@@ -60,8 +60,8 @@ public class Hero extends Player {
 			animationState.setAnimation(0, "walk", true);
 		}
 
-		if (skeleton.getFlipX()) {
-			skeleton.setFlipX(false);
+		if (!skeleton.getFlipX()) {
+			skeleton.setFlipX(true);
 		}
 
 	}
@@ -81,8 +81,8 @@ public class Hero extends Player {
 			animationState.setAnimation(0, "walk", true);
 		}
 
-		if (!skeleton.getFlipX()) {
-			skeleton.setFlipX(true);
+		if (skeleton.getFlipX()) {
+			skeleton.setFlipX(false);
 		}
 		
 	}

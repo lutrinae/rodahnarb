@@ -1,0 +1,153 @@
+
+rodohnarb.png
+size: 2021,1997
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Narb_Head
+  rotate: false
+  xy: 1142, 425
+  size: 327, 299
+  orig: 327, 299
+  offset: 0, 0
+  index: -1
+Narb_butt
+  rotate: false
+  xy: 2, 2
+  size: 283, 142
+  orig: 283, 142
+  offset: 0, 0
+  index: -1
+Narb_left_leg
+  rotate: true
+  xy: 1260, 1045
+  size: 304, 535
+  orig: 304, 535
+  offset: 0, 0
+  index: -1
+Narb_lower righ arm
+  rotate: false
+  xy: 298, 151
+  size: 447, 718
+  orig: 447, 718
+  offset: 0, 0
+  index: -1
+Narb_lower_left_arm
+  rotate: true
+  xy: 902, 60
+  size: 361, 341
+  orig: 361, 341
+  offset: 0, 0
+  index: -1
+Narb_right_leg
+  rotate: true
+  xy: 1161, 726
+  size: 317, 527
+  orig: 317, 527
+  offset: 0, 0
+  index: -1
+Narb_torso
+  rotate: true
+  xy: 1260, 1351
+  size: 353, 541
+  orig: 353, 541
+  offset: 0, 0
+  index: -1
+Narb_upper_left_arm
+  rotate: false
+  xy: 1245, 47
+  size: 307, 339
+  orig: 307, 339
+  offset: 0, 0
+  index: -1
+Narb_upper_right_arm
+  rotate: false
+  xy: 1797, 929
+  size: 171, 325
+  orig: 171, 325
+  offset: 0, 0
+  index: -1
+Rodah_Head
+  rotate: true
+  xy: 684, 874
+  size: 428, 475
+  orig: 428, 475
+  offset: 0, 0
+  index: -1
+Rodah_Torso
+  rotate: false
+  xy: 2, 871
+  size: 680, 1124
+  orig: 680, 1124
+  offset: 0, 0
+  index: -1
+Rodah_left_foot
+  rotate: true
+  xy: 1471, 388
+  size: 336, 155
+  orig: 336, 155
+  offset: 0, 0
+  index: -1
+Rodah_lower_left_arm
+  rotate: true
+  xy: 1690, 433
+  size: 494, 329
+  orig: 494, 329
+  offset: 0, 0
+  index: -1
+Rodah_lower_left_leg
+  rotate: true
+  xy: 1260, 1706
+  size: 289, 671
+  orig: 289, 671
+  offset: 0, 0
+  index: -1
+Rodah_lower_right_arm
+  rotate: true
+  xy: 747, 423
+  size: 449, 393
+  orig: 449, 393
+  offset: 0, 0
+  index: -1
+Rodah_lower_right_leg
+  rotate: false
+  xy: 684, 1304
+  size: 280, 691
+  orig: 280, 691
+  offset: 0, 0
+  index: -1
+Rodah_right_foot
+  rotate: true
+  xy: 747, 36
+  size: 385, 153
+  orig: 385, 153
+  offset: 0, 0
+  index: -1
+Rodah_upper_left_arm
+  rotate: true
+  xy: 1554, 117
+  size: 269, 456
+  orig: 269, 456
+  offset: 0, 0
+  index: -1
+Rodah_upper_left_leg
+  rotate: false
+  xy: 966, 1308
+  size: 292, 687
+  orig: 292, 687
+  offset: 0, 0
+  index: -1
+Rodah_upper_right_arm
+  rotate: false
+  xy: 1803, 1256
+  size: 200, 448
+  orig: 200, 448
+  offset: 0, 0
+  index: -1
+Rodah_upper_right_leg
+  rotate: false
+  xy: 2, 146
+  size: 294, 723
+  orig: 294, 723
+  offset: 0, 0
+  index: -1
