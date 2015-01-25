@@ -2,9 +2,12 @@ package com.gamejam.rn;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -63,13 +66,12 @@ public class RNGame extends ApplicationAdapter {
 //		player = new SpineBoy(world, camera);
 		player = new Hero(world, camera);
 //		robot = new Robot(world, camera);
-//		camera.position.set(new Vector3(,0,10));
-//		camera.lookAt(0,0,0);
 		smoothCamWorld = new SmoothCamWorld(player.playerCam);
 		smoothCamWorld.setBoundingBox(camera.viewportWidth * 0.8f, camera.viewportHeight * 0.8f);
 		
 		//input
-		Gdx.input.setInputProcessor(new GestureDetector(new GameInputListener(camera, player, smoothCamWorld))); // Listen for touch events in our InputListener class
+//		Gdx.input.setInputProcessor(new GestureDetector(new GameInputListener(camera, player, smoothCamWorld))); // Listen for touch events
+		Gdx.input.setInputProcessor(new GameInputListener(camera, player, smoothCamWorld)); // Listen for keyboard events
 	}
 
 	@Override

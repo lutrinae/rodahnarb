@@ -10,8 +10,11 @@ import com.esotericsoftware.spine.AnimationStateData;
 public class Hero extends Player {
 
 	private float walkSpeed = 0.05f;
+	private float runSpeed = 0.15f;
 
 	public boolean midAir = false;
+	public boolean sprinting = false;
+	public boolean walking = false;
 
 	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "INCLUDE", "weapon", "eyes", "body", "foot1", "foot2"});
 
@@ -36,45 +39,56 @@ public class Hero extends Player {
 		startAnimate(time);
 
 		skeleton.setX(skeleton.getX() + curVelocity.x);
+		skeleton.setY(skeleton.getY() + curVelocity.y);
 		
 		finishAnimate(time, delta);
 	}
 
 	@Override
-	public void moveRight() {
+	public void moveRight(boolean doMove) {
 		
+		if (curVelocity.x == walkSpeed || curVelocity.x == runSpeed || sprinting) {
+			curVelocity.x = runSpeed;
+			animationState.setAnimation(0, "run", true);
+		}
+
 		if (curVelocity.x == 0) {
 			curVelocity.x = walkSpeed;
+			animationState.setAnimation(0, "walk", true);
 		} else if (curVelocity.x < 0) {
-			curVelocity.x *= -1;
+			curVelocity.x = walkSpeed;
+			animationState.setAnimation(0, "walk", true);
 		}
 
 		if (skeleton.getFlipX()) {
 			skeleton.setFlipX(false);
 		}
 
-		animationState.setAnimation(0, "walk", true);
-		
 	}
-
+	
 	@Override
-	public void moveLeft() {
+	public void moveLeft(boolean doMove) {
 
+		if (curVelocity.x == -walkSpeed || curVelocity.x == -runSpeed  || sprinting) {
+			curVelocity.x = -runSpeed;
+			animationState.setAnimation(0, "run", true);
+		}
 		if (curVelocity.x == 0) {
 			curVelocity.x = -walkSpeed;
+			animationState.setAnimation(0, "walk", true);
 		} else if (curVelocity.x > 0) {
-			curVelocity.x *= -1;
+			curVelocity.x = -walkSpeed;
+			animationState.setAnimation(0, "walk", true);
 		}
-		
+
 		if (!skeleton.getFlipX()) {
 			skeleton.setFlipX(true);
 		}
 		
-		animationState.setAnimation(0, "walk", true);
 	}
 
 	@Override
-	public void moveStop() {
+	public void stop() {
 		if (curVelocity.x != 0) {
 			curVelocity.x = 0f;
 		}
@@ -85,12 +99,14 @@ public class Hero extends Player {
 	}
 
 	@Override
-	public void jump() {
+	public void jump(boolean doJump) {
 		if (animationState.getCurrent(0) == null || !animationState.getCurrent(0).toString().equals("jump")) {
 			
 			animationState.setAnimation(0, "jump", false);
-			if (curVelocity.x != 0) {
+			if (curVelocity.x == walkSpeed || curVelocity.x == -walkSpeed) {
 				animationState.addAnimation(0, "walk", true, 0);
+			} else if (curVelocity.x == runSpeed || curVelocity.x == -runSpeed) {
+				animationState.addAnimation(0, "run", true, 0);
 			} else {
 				animationState.addAnimation(0, "idle", true, 0);
 			}
@@ -102,7 +118,7 @@ public class Hero extends Player {
 		if (fixtureA.getUserData() != null && fixtureA.getBody().getUserData() != null
 				&& fixtureA.getUserData() instanceof AnimatedPhysics.Box2dRegionAttachment && fixtureA.getBody().getUserData() instanceof Player) {
 			AnimatedPhysics.Box2dRegionAttachment attachment = (AnimatedPhysics.Box2dRegionAttachment) fixtureA.getUserData();
-			if (attachment.getName().equals("Foot_Far") || attachment.getName().equals("Foot_Near")) {
+			if (attachment.getName().equals("foot1") || attachment.getName().equals("foot2")) {
 				if (fixtureB.getBody().getUserData() != null && fixtureA.getBody().getUserData() instanceof SceneryPhysics) {
 					//TODO check if contact surface is vertical or horizontal.  If vert, return false
 					return true;
@@ -113,13 +129,19 @@ public class Hero extends Player {
 	}
 
 	@Override
-	public void crouch() {
-		moveStop();
+	public void crouch(boolean doCrouch) {
+		stop();
 		if (animationState.getCurrent(0) == null || !animationState.getCurrent(0).toString().equals("crouch")) {
 			animationState.setAnimation(0, "crouch", true);
 			Gdx.app.log("Animaiton state:", animationState.getCurrent(0).toString());
 		}
 		
 	}
+
+	@Override
+	public void sprint(boolean doSprint) {
+		sprinting = doSprint;
+	}
+
 
 }
