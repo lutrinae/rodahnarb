@@ -49,7 +49,7 @@ public abstract class Player extends AnimatedPhysics {
 	public void updateCamera(SmoothCamWorld smoothCamWorld) {
 		playerCam.setPosition(skeleton.getX(), skeleton.getY());
 //		playerCam.setVelocity(curVelocity.x, curVelocity.y);
-		playerCam.setVelocity(0f, 0.1f);
+		playerCam.setVelocity(0f, 0.15f);
 		smoothCamWorld.update();
 
 		camera.position.set(smoothCamWorld.getX(), smoothCamWorld.getY(), 0);

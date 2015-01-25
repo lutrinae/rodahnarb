@@ -164,8 +164,7 @@ public abstract class AnimatedPhysics {
 				Box2dRegionAttachment attachment = (Box2dRegionAttachment) slot.getAttachment();
 
 				PolygonShape boxPoly = new PolygonShape();
-				int fudgeScale = 8;
-				boxPoly.setAsBox(attachment.getWidth() / fudgeScale * attachment.getScaleX(), attachment.getHeight() / fudgeScale * attachment.getScaleY(),
+				boxPoly.setAsBox(attachment.getWidth() / 2 * attachment.getScaleX(), attachment.getHeight() / 2 * attachment.getScaleY(),
 						vector.set(attachment.getX(), attachment.getY()), attachment.getRotation() * MathUtils.degRad);
 
 				BodyDef boxBodyDef = new BodyDef();

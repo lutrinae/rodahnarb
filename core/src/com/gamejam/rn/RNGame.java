@@ -18,6 +18,7 @@ import com.gamejam.rn.input.GameInputListener;
 public class RNGame extends ApplicationAdapter {
 
 	private World world;
+	private GameWorld gworld;
 	private SmoothCamWorld smoothCamWorld;
 	float time;
 	
@@ -58,10 +59,11 @@ public class RNGame extends ApplicationAdapter {
 		debugRenderer = new Box2DDebugRenderer();
 		scDebug = new SmoothCamDebugRenderer();
 
-		world = new GameWorld(camera).getWorld();
+		gworld = new GameWorld(camera);
+		world = gworld.getWorld();
 //		player = new SpineBoy(world, camera);
-		player = new Hero(world, camera);
-//		player = new RodohNarb(world, camera);
+//		player = new Hero(world, camera);
+		player = new RodohNarb(world, camera);
 //		robot = new Robot(world, camera);
 		smoothCamWorld = new SmoothCamWorld(player.playerCam);
 		smoothCamWorld.setBoundingBox(camera.viewportWidth * 0.8f, camera.viewportHeight * 0.8f);
@@ -87,6 +89,7 @@ public class RNGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		gworld.render();
 		//render objects
 		player.updateCamera(smoothCamWorld);
 		player.animate(time, delta);

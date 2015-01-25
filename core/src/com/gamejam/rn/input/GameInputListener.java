@@ -107,6 +107,7 @@ public class GameInputListener implements GestureListener, InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
+		player.primaryFire(true);
 		return false;
 	}
 
@@ -124,7 +125,7 @@ public class GameInputListener implements GestureListener, InputProcessor {
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		Gdx.app.log("Mouse X: " + screenX, " , Mouse Y: " + screenY);
+//		Gdx.app.log("Mouse X: " + screenX, " , Mouse Y: " + screenY);
 		player.look(true);
 		// TODO Auto-generated method stub
 		return false;

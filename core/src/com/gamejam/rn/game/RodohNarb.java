@@ -2,10 +2,13 @@ package com.gamejam.rn.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.AnimationStateData;
+import com.esotericsoftware.spine.Bone;
 
 public class RodohNarb extends Player {
 
@@ -16,23 +19,20 @@ public class RodohNarb extends Player {
 	public boolean sprinting = false;
 	public boolean walking = false;
 
-	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "INCLUDE", "Rodah_right_foot", "Rodah_left_foot", "Rodah_Torso", "foot1", "foot2"});
+	Bone head;
+
+	static Array<String> skeletonSlotsExcludeFromBodies = new Array<String>(new String[] { "INCLUDE", "Rodah_right_foot", "Rodah_left_foot"});
 
 	public RodohNarb(World world, Camera camera) {
-		super(world, camera, "rodohnarb", skeletonSlotsExcludeFromBodies, 0.011f);
+		super(world, camera, "rodohnarb", skeletonSlotsExcludeFromBodies, 0.003f);
 
 		AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 		stateData.setDefaultMix(0.1f);
-//		stateData.setMix("idle", "jump", 0.2f);
-//		stateData.setMix("idle", "walk", 0.2f);
-//		stateData.setMix("idle", "crouch", 0.2f);
-//		stateData.setMix("walk", "jump", 0.1f);
-//		stateData.setMix("walk", "idle", 0.2f);
-//		stateData.setMix("jump", "walk", 0.4f);
-//		stateData.setMix("jump", "idle", 0.4f);
 		createAnimationState(stateData);
 
 		animationState.setAnimation(0, "idle", true);
+		
+		head = skeleton.findBone("Narb_Head");
 	}
 
 	public void animate(float time, float delta) {
@@ -41,7 +41,41 @@ public class RodohNarb extends Player {
 		skeleton.setX(skeleton.getX() + curVelocity.x);
 		skeleton.setY(skeleton.getY() + curVelocity.y);
 		
-		finishAnimate(time, delta);
+		updateAnimate(delta);
+		lookAtMouse();
+		finishAnimate(time);
+	}
+	
+	private void lookAtMouse() {
+		Vector3 mouseDirection = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(),0)).sub(skeleton.getX(), skeleton.getY() + 3,0);
+		Vector2 mouseDirection2 = new Vector2 (mouseDirection.x, mouseDirection.y);;
+		float rawMouseAngle = mouseDirection2.angle();
+		mouseDirection2.x = Math.abs(mouseDirection2.x);
+		float localMouseAngle =  mouseDirection2.angle();
+		float rotateHead = 90;
+		
+		if (rawMouseAngle > 180) {
+			rawMouseAngle -= 360;
+			localMouseAngle -= 360;
+		}
+		rotateHead = localMouseAngle;
+
+		if (localMouseAngle > 45)
+			rotateHead = 45;
+		if (localMouseAngle < -45)
+			rotateHead = -45;
+		Gdx.app.log("Raw Angle", "" + (rawMouseAngle));
+		Gdx.app.log("Local Angle", "" + (localMouseAngle));
+		
+//		head.setRotation(rotateHead - 90);
+		head.setRotation(-rotateHead + 45);
+		
+		if (rawMouseAngle > 90 || rawMouseAngle < -90) {
+			head.setFlipX(skeleton.getFlipX());
+		}
+		if (rawMouseAngle < 90 && rawMouseAngle > -90) {
+			head.setFlipX(!skeleton.getFlipX());
+		}
 	}
 
 	@Override
@@ -116,16 +150,10 @@ public class RodohNarb extends Player {
 	@Override
 	public void crouch(boolean doCrouch) {
 		stop();
-		if (animationState.getCurrent(0) == null || !animationState.getCurrent(0).toString().equals("crouch")) {
-			animationState.setAnimation(0, "crouch", true);
-			Gdx.app.log("Animaiton state:", animationState.getCurrent(0).toString());
-		}
-		
 	}
 
 	@Override
 	public void sprint(boolean doSprint) {
-		sprinting = doSprint;
 	}
 	
 	private boolean checkFeetOnGround(Fixture fixtureA, Fixture fixtureB) {
@@ -151,8 +179,17 @@ public class RodohNarb extends Player {
 
 	@Override
 	public void primaryFire(boolean doPrimaryFire) {
-		// TODO Auto-generated method stub
-		
+
+		if (curVelocity.x == walkSpeed || curVelocity.x == -walkSpeed) {
+			animationState.setAnimation(0, "attack_walk", false);
+			animationState.addAnimation(0, "walk", true, 0);
+		} else if (curVelocity.x == runSpeed || curVelocity.x == -runSpeed) {
+			animationState.setAnimation(0, "attack_walk", false);
+			animationState.addAnimation(0, "run", true, 0);
+		} else {
+			animationState.setAnimation(0, "attack", false);
+			animationState.addAnimation(0, "idle", true, 0);
+		}
 	}
 
 
