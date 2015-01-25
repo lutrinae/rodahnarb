@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
+import com.esotericsoftware.spine.SkeletonRenderer;
 import com.gamejam.rn.camera.SmoothCamDebugRenderer;
 import com.gamejam.rn.camera.SmoothCamSubject;
 import com.gamejam.rn.camera.SmoothCamWorld;
@@ -45,9 +46,11 @@ public class RNWorld implements Disposable {
 	private float viewportAspect;
 
 	private PolygonSpriteBatch batch;
+	private SkeletonRenderer spineRenderer;
 
 	private Box2DDebugRenderer physicsDebugRenderer;
 	private SmoothCamDebugRenderer cameraDebugRenderer;
+	
 	
 	public RNWorld() {
 		entities = new ArrayList<Entity>();
@@ -65,6 +68,7 @@ public class RNWorld implements Disposable {
 		viewportAspect = camera.viewportWidth / camera.viewportHeight;
 		
 		batch = new PolygonSpriteBatch();
+		spineRenderer = new SkeletonRenderer();
 		
 		cameraDebugRenderer = new SmoothCamDebugRenderer();
 		physicsDebugRenderer = new Box2DDebugRenderer(
@@ -187,8 +191,16 @@ public class RNWorld implements Disposable {
 		}
 	}
 	
+	public OrthographicCamera getCamera() {
+		return camera;
+	}
+	
 	public SmoothCamSubject getCameraSubject() {
 		return cameraSubject;
+	}
+	
+	public SkeletonRenderer getSpineRenderer() {
+		return spineRenderer;
 	}
 	
 }

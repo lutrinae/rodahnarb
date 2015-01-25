@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class EnvironmentEntity extends StaticEntity {
+public class EnvironmentEntity extends Entity {
 
 	Sprite sprite;
 	ParallaxLayer layer;
@@ -16,6 +16,15 @@ public class EnvironmentEntity extends StaticEntity {
 		this.sprite.setOriginCenter();
 		this.sprite.setCenterX(position.x);
 		this.sprite.setCenterY(position.y);
+	}
+	
+	public EnvironmentEntity(TextureAtlas atlas, String name, float x, float y, float width, float height) {
+		layer = ParallaxLayer.NORMAL;
+		sprite = atlas.createSprite(name);
+		sprite.setOriginCenter();
+		sprite.setScale(width / sprite.getWidth(), height / sprite.getHeight());
+		sprite.setCenterX(position.x);
+		sprite.setCenterY(position.y);
 	}
 	
 	public EnvironmentEntity(TextureRegion sprite) {
@@ -44,7 +53,7 @@ public class EnvironmentEntity extends StaticEntity {
 	}
 	
 	public void setSize(float width, float height) {
-		sprite.setSize(width, height);
+		sprite.setScale(width / sprite.getWidth(), height / sprite.getHeight());
 	}
 	
 	public void setLayer(ParallaxLayer layer) {

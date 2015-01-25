@@ -1,27 +1,34 @@
 
 environment.png
-size: 1024,512
+size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-test1
+fixed
+  rotate: false
+  xy: 504, 246
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+trees_far
+  rotate: false
+  xy: 2, 504
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+trees_mid
   rotate: false
   xy: 2, 2
-  size: 256, 256
-  orig: 256, 256
+  size: 500, 500
+  orig: 500, 500
   offset: 0, 0
   index: -1
-test2
+trees_near
   rotate: false
-  xy: 260, 2
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-test3
-  rotate: false
-  xy: 518, 2
-  size: 256, 256
-  orig: 256, 256
+  xy: 504, 504
+  size: 500, 500
+  orig: 500, 500
   offset: 0, 0
   index: -1

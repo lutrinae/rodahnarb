@@ -5,9 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.Box2D;
-import com.gamejam.rn.game.simulation.EnvironmentEntity;
 import com.gamejam.rn.game.simulation.ParallaxLayer;
 import com.gamejam.rn.game.simulation.RNWorld;
+import com.gamejam.rn.game.simulation.RepeatingBackgroundEntity;
 
 public class EnvironmentTest extends ApplicationAdapter {
 
@@ -20,17 +20,18 @@ public class EnvironmentTest extends ApplicationAdapter {
 		
 		TextureAtlas environmentAtlas = new TextureAtlas(Gdx.files.internal("environment.atlas"));
 		
-		EnvironmentEntity e1 = new EnvironmentEntity(environmentAtlas, "test1");
+		RepeatingBackgroundEntity e1 = new RepeatingBackgroundEntity(environmentAtlas, "trees_far", ParallaxLayer.FAR_BACKGROUND);
 		e1.setSize(100, 100);
-		e1.setPosition(0, 0);
 		
-		EnvironmentEntity e2 = new EnvironmentEntity(environmentAtlas, "test2");
-		e2.setLayer(ParallaxLayer.BACKGROUND);
+		RepeatingBackgroundEntity e2 = new RepeatingBackgroundEntity(environmentAtlas, "trees_mid", ParallaxLayer.BACKGROUND);
 		e2.setSize(100, 100);
-		e2.setPosition(10, 10);
+		
+		RepeatingBackgroundEntity e3 = new RepeatingBackgroundEntity(environmentAtlas, "trees_near", ParallaxLayer.NEAR_BACKGROUND);
+		e3.setSize(100, 100);
 		
 		world.addEntity(e1);
 		world.addEntity(e2);
+		world.addEntity(e3);
 		
 		world.getCameraSubject().setVelocity(10f,  0f);
 		
