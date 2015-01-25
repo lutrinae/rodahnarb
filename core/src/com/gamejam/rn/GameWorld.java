@@ -30,8 +30,8 @@ public class GameWorld {
 		SceneryPhysics wallRight = new SceneryPhysics(world, new Vector2(camera.viewportWidth-bw,camera.viewportHeight/2), new Vector2[]{new Vector2(bw, camera.viewportHeight/2)});
 		
 		//box obstacles
-		for (int i = 0; i < 200; i++) {
-//			PhysicsWrapper.createFixture(world, BodyType.DynamicBody, Shape.Type.Polygon, new Vector2(camera.viewportWidth/4 + (float)(Math.random() * camera.viewportWidth/2), camera.viewportHeight/4 + (float)(Math.random() * camera.viewportHeight/2)), new Vector2[]{new Vector2(.2f,.2f)},new float[]{}).setFilterData(sceneryFilter);
+		for (int i = 0; i < 20; i++) {
+			PhysicsWrapper.createFixture(world, BodyType.DynamicBody, Shape.Type.Polygon, new Vector2(camera.viewportWidth/4 + (float)(Math.random() * camera.viewportWidth/2), camera.viewportHeight/4 + (float)(Math.random() * camera.viewportHeight/2)), new Vector2[]{new Vector2(.2f,.2f)},new float[]{}).setFilterData(sceneryFilter);
 		}
 		
 	}

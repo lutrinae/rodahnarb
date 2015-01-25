@@ -58,14 +58,16 @@ public abstract class Player extends AnimatedPhysics {
 		camera.update();
 	}
 
-	public abstract void moveRight();
+	public abstract void moveRight(boolean doMove);
+	
+	public abstract void moveLeft(boolean doMove);
+	
+	public abstract void stop();
 
-	public abstract void moveLeft();
+	public abstract void jump(boolean doJump);
 
-	public abstract void moveStop();
-
-	public abstract void jump();
-
-	public abstract void crouch();
+	public abstract void crouch(boolean doCrouch);
+	
+	public abstract void sprint(boolean doSprint);
 
 }

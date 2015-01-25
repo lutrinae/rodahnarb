@@ -40,7 +40,7 @@ public class SpineBoy extends Player {
 	}
 
 	@Override
-	public void moveRight() {
+	public void moveRight(boolean doMove) {
 		
 		if (curVelocity.x == 0) {
 			curVelocity.x = walkSpeed;
@@ -57,7 +57,7 @@ public class SpineBoy extends Player {
 	}
 
 	@Override
-	public void moveLeft() {
+	public void moveLeft(boolean doMove) {
 
 		if (curVelocity.x == 0) {
 			curVelocity.x = -walkSpeed;
@@ -73,7 +73,7 @@ public class SpineBoy extends Player {
 	}
 
 	@Override
-	public void moveStop() {
+	public void stop() {
 		if (curVelocity.x != 0) {
 			curVelocity.x = 0f;
 		}
@@ -84,7 +84,7 @@ public class SpineBoy extends Player {
 	}
 
 	@Override
-	public void jump() {
+	public void jump(boolean doJump) {
 		if (animationState.getCurrent(0) == null || !animationState.getCurrent(0).toString().equals("jump")) {
 			
 			animationState.setAnimation(0, "jump", false);
@@ -112,7 +112,13 @@ public class SpineBoy extends Player {
 	}
 
 	@Override
-	public void crouch() {
+	public void crouch(boolean doCrouch) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sprint(boolean doSprint) {
 		// TODO Auto-generated method stub
 		
 	}
